@@ -1,4 +1,7 @@
 require("dotenv").config();
 const imgurSearch = require("./imgurSearch");
 
-imgurSearch.getMainGallery({ section: "top" }).then(console.log);
+imgurSearch
+    .bySubreddit("pictures", "asd")
+    .then(console.log)
+    .catch(console.log);
