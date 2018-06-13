@@ -1,5 +1,9 @@
 const fetch = require("node-fetch");
-const { getPathFromOptions, isValidRequestOption } = require("./utils");
+const {
+    getPathFromOptions,
+    isValidRequestOption,
+    createSearchQuery
+} = require("./utils");
 
 const imgurSearch = {
     apiUrl: "https://api.imgur.com/3",
@@ -128,6 +132,40 @@ const imgurSearch = {
                     Accept: "application/json"
                 }
             })
+                .then(res => resolve(res.json()))
+                .catch(err => reject(err));
+        });
+    },
+
+    byString: (searchString, pathOptions = {}, headerOptions = {}) => {
+        return new Promise((resolve, reject) => {
+            isValidRequestOption(pathOptions, headerOptions, reject);
+
+            if (!searchString) {
+                reject("To search by string, you need to provide a string.");
+            }
+            pathOptions = {
+                ...{
+                    sort: "time",
+                    window: "all",
+                    page: 1
+                },
+                ...pathOptions
+            };
+            fetch(
+                imgurSearch.apiUrl +
+                    "/gallery/search/" +
+                    getPathFromOptions(pathOptions) +
+                    createSearchQuery(searchString),
+                {
+                    headers: {
+                        ...headerOptions,
+                        Authorization:
+                            "Client-ID " + process.env.IMGUR_CLIENT_ID,
+                        Accept: "application/json"
+                    }
+                }
+            )
                 .then(res => resolve(res.json()))
                 .catch(err => reject(err));
         });

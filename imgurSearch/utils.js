@@ -14,7 +14,13 @@ const isValidRequestOption = (pathOptions, headerOptions, reject) => {
     }
 };
 
+const createSearchQuery = searchString => {
+    let searchQuery = "?q=" + searchString;
+    return searchQuery;
+};
+
 module.exports = {
     getPathFromOptions,
-    isValidRequestOption
+    isValidRequestOption,
+    createSearchQuery
 };
