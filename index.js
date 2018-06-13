@@ -1,13 +1,4 @@
 require("dotenv").config();
-let fetch = require("node-fetch");
+const imgurSearch = require("./imgurSearch");
 
-fetch("https://api.imgur.com/3/image/njihQTy", {
-    headers: {
-        Authorization: "Client-ID " + process.env.IMGUR_CLIENT_ID,
-        Accept: "application/json"
-    }
-})
-    .then(res => res.json())
-    .then(res => console.log(res));
-
-console.log(process.env.GOOGLE_API_KEY);
+imgurSearch.getMainGallery({ section: "top" }).then(console.log);
