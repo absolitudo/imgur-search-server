@@ -86,7 +86,39 @@ const imgurSearch = {
         });
     },
 
-    byTag: () => console.log("hello")
+    byTag: (tagName, pathOptions = {}, headerOptions = {}) => {
+        return new Promise((resolve, reject) => {
+            isValidRequestOption(pathOptions, headerOptions, reject);
+
+            if (!tagName) {
+                reject("To search by tag, you need to provide a tag name.");
+            }
+            pathOptions = {
+                ...{
+                    tagName: tagName,
+                    sort: "time",
+                    window: "all",
+                    page: 1
+                },
+                ...pathOptions
+            };
+            fetch(
+                imgurSearch.apiUrl +
+                    "/gallery/t/" +
+                    getPathFromOptions(pathOptions),
+                {
+                    headers: {
+                        ...headerOptions,
+                        Authorization:
+                            "Client-ID " + process.env.IMGUR_CLIENT_ID,
+                        Accept: "application/json"
+                    }
+                }
+            )
+                .then(res => resolve(res.json()))
+                .catch(err => reject(err));
+        });
+    }
 };
 
 module.exports = imgurSearch;
