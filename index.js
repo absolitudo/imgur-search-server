@@ -2,6 +2,6 @@ require("dotenv").config();
 const imgurSearch = require("./imgurSearch");
 
 imgurSearch
-    .byTag("animal")
+    .getTags()
     .then(console.log)
     .catch(console.log);

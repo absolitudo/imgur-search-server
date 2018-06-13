@@ -118,6 +118,19 @@ const imgurSearch = {
                 .then(res => resolve(res.json()))
                 .catch(err => reject(err));
         });
+    },
+
+    getTags: () => {
+        return new Promise((resolve, reject) => {
+            fetch("https://api.imgur.com/3/tags", {
+                headers: {
+                    Authorization: "Client-ID " + process.env.IMGUR_CLIENT_ID,
+                    Accept: "application/json"
+                }
+            })
+                .then(res => resolve(res.json()))
+                .catch(err => reject(err));
+        });
     }
 };
 
