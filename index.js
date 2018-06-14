@@ -1,7 +1,15 @@
 require("dotenv").config();
 const imgurSearch = require("./imgurSearch");
 const app = require("express")();
+const cors = require("cors");
 const port = process.env.PORT || 7777;
+
+const corsOptions = {
+    origin: "http://localhost:3000",
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 app.get("/api/tags", (req, res) =>
     imgurSearch
