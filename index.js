@@ -18,8 +18,8 @@ app.get("/api/tags", (req, res) =>
 app.get("/api/mainGallery", (req, res) =>
     imgurSearch
         .getMainGallery(
-            req.body.pathOptions || {},
-            req.body.headerOptions || {}
+            req.body ? req.body.pathOptions : {},
+            req.body ? req.body.headerOptions : {}
         )
         .then(response => res.send(response))
         .catch(err =>
@@ -125,5 +125,7 @@ app.get("/api/searchString", (req, res) => {
         });
     }
 });
-
+/*
+TODO: caching maybe
+*/
 app.listen(port, () => console.log("listening on " + port));

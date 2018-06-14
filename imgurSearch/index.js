@@ -8,12 +8,6 @@ const {
 const imgurSearch = {
     apiUrl: "https://api.imgur.com/3",
 
-    defaultRequestHeaderOptions: {
-        showViral: true,
-        mature: false,
-        album_previews: false
-    },
-
     getMainGallery: (pathOptions = {}, headerOptions = {}) => {
         return new Promise((resolve, reject) => {
             isValidRequestOption(pathOptions, headerOptions, reject);
