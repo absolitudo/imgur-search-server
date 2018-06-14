@@ -30,76 +30,100 @@ app.get("/api/mainGallery", (req, res) =>
         )
 );
 
-app.get(
-    "/api/searchSubreddit",
-    (req, res) =>
-        req.body
-            ? imgurSearch
-                  .bySubreddit(
-                      req.body.subreddit,
-                      req.body.pathOptions,
-                      req.body.headerOptions
-                  )
-                  .then(response => res.send(response))
-                  .catch(err =>
-                      res.send({
-                          status: 400,
-                          error: err
-                      })
-                  )
-            : res.send({
-                  status: 400,
-                  error:
-                      "The request body must contain a subreddit name: {subreddit: {{subredditName}}}."
-              })
-);
+app.get("/api/searchSubreddit", (req, res) => {
+    if (req.body) {
+        imgurSearch
+            .bySubreddit(
+                req.body.subreddit || {},
+                req.body.pathOptions,
+                req.body.headerOptions
+            )
+            .then(response => res.send(response))
+            .catch(err => {
+                if (err === "You need to provide a subreddit name.") {
+                    res.send({
+                        status: 400,
+                        error:
+                            "The request body must contain a subreddit name: {subreddit: {{subredditName}}}."
+                    });
+                } else {
+                    res.send({
+                        status: 400,
+                        error: err
+                    });
+                }
+            });
+    } else {
+        res.send({
+            status: 400,
+            error:
+                "The request body must contain a subreddit name: {subreddit: {{subredditName}}}."
+        });
+    }
+});
 
-app.get(
-    "/api/searchTag",
-    (req, res) =>
-        req.body
-            ? imgurSearch
-                  .byTag(
-                      req.body.tagName,
-                      req.body.pathOptions,
-                      req.body.headerOptions
-                  )
-                  .then(response => res.send(response))
-                  .catch(err =>
-                      res.send({
-                          status: 400,
-                          error: err
-                      })
-                  )
-            : res.send({
-                  status: 400,
-                  error:
-                      "The request body must contain a tag name: {tagName: {{tagName}}}."
-              })
-);
+app.get("/api/searchTag", (req, res) => {
+    if (req.body) {
+        imgurSearch
+            .byTag(
+                req.body.tagName || {},
+                req.body.pathOptions,
+                req.body.headerOptions
+            )
+            .then(response => res.send(response))
+            .catch(err => {
+                if (err === "You need to provide a tag name.") {
+                    res.send({
+                        status: 400,
+                        error:
+                            "The request body must contain a tag name: {tagName: {{tagName}}}."
+                    });
+                } else {
+                    res.send({
+                        status: 400,
+                        error: err
+                    });
+                }
+            });
+    } else {
+        res.send({
+            status: 400,
+            error:
+                "The request body must contain a tag name: {tagName: {{tagName}}}."
+        });
+    }
+});
 
-app.get(
-    "/api/searchString",
-    (req, res) =>
-        req.body
-            ? imgurSearch
-                  .byString(
-                      req.body.searchString,
-                      req.body.pathOptions,
-                      req.body.headerOptions
-                  )
-                  .then(response => res.send(response))
-                  .catch(err =>
-                      res.send({
-                          status: 400,
-                          error: err
-                      })
-                  )
-            : res.send({
-                  status: 400,
-                  error:
-                      "The request body must contain a search string: {searchString: {{searchString}}}."
-              })
-);
+app.get("/api/searchString", (req, res) => {
+    if (req.body) {
+        imgurSearch
+            .byString(
+                req.body.searchString || {},
+                req.body.pathOptions,
+                req.body.headerOptions
+            )
+            .then(response => res.send(response))
+            .catch(err => {
+                if (err === "You need to provide a string.") {
+                    res.send({
+                        status: 400,
+                        error:
+                            "The request body must contain a search string: {searchString: {{searchString}}}."
+                    });
+                } else {
+                    res.send({
+                        status: 400,
+                        error: err
+                    });
+                }
+            });
+    } else {
+        res.send({
+            status: 400,
+            error:
+                "The request body must contain a search string: {searchString: {{searchString}}}."
+        });
+    }
+});
 
 app.listen(port, () => console.log("listening on " + port));
