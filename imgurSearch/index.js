@@ -59,9 +59,7 @@ const imgurSearch = {
             isValidRequestOption(pathOptions, headerOptions, reject);
 
             if (!subreddit) {
-                reject(
-                    "To search by subreddit, you need to provide a subreddit name."
-                );
+                reject("You need to provide a subreddit name.");
             }
             pathOptions = {
                 ...{
@@ -95,7 +93,7 @@ const imgurSearch = {
             isValidRequestOption(pathOptions, headerOptions, reject);
 
             if (!tagName) {
-                reject("To search by tag, you need to provide a tag name.");
+                reject("You need to provide a tag name.");
             }
             pathOptions = {
                 ...{
@@ -142,7 +140,7 @@ const imgurSearch = {
             isValidRequestOption(pathOptions, headerOptions, reject);
 
             if (!searchString) {
-                reject("To search by string, you need to provide a string.");
+                reject("You need to provide a string.");
             }
             pathOptions = {
                 ...{
